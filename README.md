@@ -1,58 +1,101 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Dynamic Design Tokens API (Laravel Backend)
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A high-performance, lightweight RESTful API built with Laravel 13 designed to manage and serve architectural design tokens (UI themes, color palettes, typographic variables, and spatial grids) to modern decoupled front-end applications. This repository demonstrates a robust Headless CMS approach to design system token distribution.
 
-## About Laravel
+## 🚀 Key Architectural Features
+- **Dynamic Theme Management:** Delivers active design systems (Light, Dark, and Custom themes) via optimized JSON structures, enabling runtime theme transitions on the client side without hardcoded style assets.
+- **Persistent Embedded Database:** Utilizes an embedded SQLite architecture, optimized for containerized deployments with seamless schema migrations and automated data seeding.
+- **SSL Termination Ready:** Architected to handle secure cloud-based HTTPS reverse-proxies (specifically configured for Railway infrastructure) by enforcing secure URL schemes in production environments to eliminate Mixed Content restrictions.
+- **AI-Accelerated Core:** Developed using advanced AI-assisted workflows (Vibe Coding via Cursor) to enforce rapid validation cycles while maintaining enterprise-grade software patterns.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## 🛠️ Tech Stack & Infrastructure
+- **Core Framework:** Laravel 13 (PHP 8.3+)
+- **Database Engine:** SQLite (Embedded & version-controlled for zero-latency lookups)
+- **Deployment Platform:** Railway (Persistent Container with Git-driven CI/CD deployment pipelines)
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## 🔗 Project Ecosystem Links
+- **Associated Front-end Repository:** https://github.com/tranlongpc325/saas-dashboard-sandbox
+- **Figma Design Specification (View-Only):** [Figma Design](https://www.figma.com/design/NV1vGbz8QPH4VNaH6uYS1y/User-Management-Dashboard?node-id=30-3141&t=SmdUjnhahXkjV3vV-1)
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## 📋 API Specifications
 
-## Learning Laravel
+### Get Active Design Tokens
+Retrieves the currently active theme configurations and design variables mapped directly from the Figma UI3 layout structure.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- **HTTP Method:** `GET`
+- **Endpoint:** `/api/v1/themes/active`
+- **Production Live URL:** `https://design-tokens-api-production.up.railway.app/api/v1/themes/active`
+- **Success Response (200 OK):**
+   ```json
+   {
+     "success": true,
+     "message": "Active theme tokens retrieved successfully.",
+     "data": {
+       "theme_name": "light",
+       "tokens": {
+         "bg_primary": "#ffffff",
+         "text_primary": "#1a1a1a",
+         "brand_color": "#4f46e5"
+       }
+     }
+   }
+   ```
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## 💻 Local Setup & Installation
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+### Prerequisites
 
-## Agentic Development
+* PHP >= 8.3
+* Composer
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+### Step-by-Step Configuration
 
-```bash
-composer require laravel/boost --dev
+1. **Clone the repository and navigate to the project root:**
+   ```bash
+   git clone https://github.com/your-github-username/design-tokens-api.git
+   cd design-tokens-api
+   ```
 
-php artisan boost:install
+2. **Install all production and development dependencies via Composer:**
+   ```bash
+   composer install
+   ```
+
+3. **Configure local environment environment:**
+   ```bash
+   cp .env.example .env
+   ```
+
+4. **Generate the application encryption key:**
+   ```bash
+   php artisan key:generate
+   ```
+
+
+5. **Initialize the SQLite database file and run seeders to populate initial theme tokens:**
+   ```bash
+   touch database/database.sqlite
+   php artisan migrate --seed
+   ```
+
+
+6. **Start the local development server:**
+   ```bash
+   php artisan serve
+   ```
+
+   The local API endpoint will now be active at `http://127.0.0.1:8000/api/v1/themes/active`
+
+## 🔒 Production Environment Variables
+
+When deploying this service to container platforms like Railway, ensure the following core variables are explicitly injected into the dashboard panel to ensure secure, stateless execution:
+
+```env
+APP_ENV=production
+APP_DEBUG=false
+DB_CONNECTION=sqlite
+DB_DATABASE=database/database.sqlite
+CACHE_STORE=array
+SESSION_DRIVER=array
+LOG_CHANNEL=stderr
 ```
-
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).

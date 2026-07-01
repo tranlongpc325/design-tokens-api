@@ -33,9 +33,10 @@ Retrieves the currently active theme configurations and design variables mapped 
      "data": {
        "theme_name": "light",
        "tokens": {
-         "bg_primary": "#ffffff",
-         "text_primary": "#1a1a1a",
-         "brand_color": "#4f46e5"
+         "--brand-primary":"#2563EB",
+         "--surface-main":"#F1F5F9",
+         "--surface-card":"#FFFFFF",
+         ...
        }
      }
    }
